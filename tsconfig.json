@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "downlevelIteration": true,
+    "lib": ["ES2020"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "dist",
+    "baseUrl": "lib",
+    "paths": {
+      "*": ["./*"]
+    },
+    "types": ["@types/node"],
+    "typeRoots": ["lib/typings", "./node_modules/@types"]
+  },
+  "include": ["lib/**/*"],
+  "exclude": ["node_modules", "tests"]
+}
