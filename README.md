@@ -5,6 +5,8 @@
   	<span>
 		<a href="#installation">Installation</a>
 		<span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+		<a href="#cli">CLI</a>
+		<span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
 		<a href="#usage">Usage</a>
 		<span>&nbsp;&nbsp;·&nbsp;&nbsp;</span>
 		<a href="#contribute">Contribute</a>
@@ -17,11 +19,32 @@
 To install Dephash, simply use your favourite Node.js package manager.
 
 ```bash
-yarn add dephash
+yarn add -D dephash
 ```
 
 ```bash
-npm install dephash
+npm install --save-dev dephash
+```
+
+## CLI
+
+Dephash exposes a CLI for you to generate a hash.
+
+```bash
+yarn dephash --raw
+```
+
+```bash
+Generates a hash based off the dependencies & files from the current working directory.
+
+Options:
+  --exclude-ios                    will not consider native ios changes
+  --exclude-android                will not consider native android changes
+  --exclude-expo-config            will not consider expo changes (ie. *.plugin.js, app.config.js, etc.)
+  --factor-all-changes             will generate a new hash even if the changes are non-native
+  --additional-patterns <pattern>  glob patterns seperated by ","
+  --raw, -r                        whether to just return the raw value in stdout
+  -h, --help                       display help for command
 ```
 
 ## Usage
