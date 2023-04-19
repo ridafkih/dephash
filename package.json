@@ -7,6 +7,13 @@
   "author": "Rida F'kih <hello@rida.dev>",
   "license": "MIT",
   "private": false,
+  "scripts": {
+    "build": "tsc --declaration && tsc-alias",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "yarn lint --fix"
+  },
   "dependencies": {
     "glob": "^10.2.1",
     "murmurhash": "^2.0.1"
