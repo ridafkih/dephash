@@ -2,6 +2,10 @@ import type { Platform } from "enums/platform";
 
 export interface HashDependenciesOptions {
   /**
+   * The root directory of where to begin the scan.
+   */
+  rootDirectory?: string;
+  /**
    * Which platforms to exclude from the search.
    */
   excludePlatforms?: Platform[];

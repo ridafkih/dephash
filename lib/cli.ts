@@ -28,6 +28,7 @@ program
   .description(
     "Generates a hash based off the dependencies & files from the current working directory."
   )
+  .option("--root-directory", "will be where the the scan begins for files")
   .option("--exclude-ios", "will not consider native ios changes")
   .option("--exclude-android", "will not consider native android changes")
   .option(
@@ -44,6 +45,7 @@ program
     performance.mark("execution_start");
 
     const {
+      rootDirectory,
       excludeIos,
       excludeAndroid,
       excludeExpoConfig,
@@ -58,6 +60,8 @@ program
     if (isBooleanTrue(excludeAndroid)) excludePlatforms.push(Platform.Android);
 
     const { hash, fileCount } = hashDependencies({
+      rootDirectory:
+        typeof rootDirectory === "string" ? rootDirectory : undefined,
       excludePlatforms,
       additionalPatterns:
         typeof additionalPatterns === "string"

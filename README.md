@@ -38,6 +38,7 @@ yarn dephash --raw
 Generates a hash based off the dependencies & files from the current working directory.
 
 Options:
+  --root-directory                 will be where the the scan begins for files
   --exclude-ios                    will not consider native ios changes
   --exclude-android                will not consider native android changes
   --exclude-expo-config            will not consider expo changes (ie. *.plugin.js, app.config.js, etc.)
@@ -63,6 +64,10 @@ This will hash the dependencies in the current working directory and print the r
 ### Options
 
 You can pass options to `hashDependencies` to customize its behaviour.
+
+#### rootDirectory
+
+Where the scan for files that will contribute to the hash will come from.
 
 #### excludePlatforms
 

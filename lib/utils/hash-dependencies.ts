@@ -12,11 +12,12 @@ import {
 } from "constants/glob-patterns";
 
 /**
- * Hashes the dependencies in the current working directory as a hash.
+ * Hashes the dependencies in the current working directory as a string.
  * @param options Optional options to change the behaviour of the dependency hashing functionality.
  * @returns A hash as a string representing the dependencies
  */
 export const hashDependencies = ({
+  rootDirectory,
   excludePlatforms,
   excludeExpoConfig,
   factorAllDependencyChanges,
@@ -42,7 +43,7 @@ export const hashDependencies = ({
   if (additionalPatterns) patterns.push(...additionalPatterns);
 
   const files = patterns.flatMap((pattern) => globSync(pattern)).sort();
-  const hash = hashFileContents(files);
+  const hash = hashFileContents(files, { rootDirectory });
 
   return { hash, fileCount: files.length };
 };
