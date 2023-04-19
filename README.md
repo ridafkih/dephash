@@ -101,4 +101,4 @@ console.log(hash);
 
 ## Contribute
 
-Feel free to contribute to the repository. Pull requests and issues with feature requests are _super_ welcome!```
+Feel free to contribute to the repository. Pull requests and issues with feature requests are _super_ welcome!
