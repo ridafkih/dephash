@@ -7,6 +7,7 @@
   "author": "Rida F'kih <hello@rida.dev>",
   "license": "MIT",
   "private": false,
+  "bin": "dist/cli.js",
   "scripts": {
     "build": "tsc --declaration && tsc-alias",
     "test": "vitest",
@@ -15,11 +16,14 @@
     "lint:fix": "yarn lint --fix"
   },
   "dependencies": {
+    "commander": "^10.0.1",
     "glob": "^10.2.1",
-    "murmurhash": "^2.0.1"
+    "murmurhash": "^2.0.1",
+    "signale": "^1.4.0"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
+    "@types/signale": "^1.4.4",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "eslint": "^8.38.0",
