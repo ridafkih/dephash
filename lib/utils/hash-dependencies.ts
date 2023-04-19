@@ -1,0 +1,40 @@
+import { Platform } from "enums/platform";
+import { globSync } from "glob";
+import { hashFileContents } from "utils/hash-files";
+import type { HashDependenciesOptions } from "types/hash-dependencies-options";
+
+import {
+  PACKAGE_JSON_PATTERN,
+  IOS_PACKAGE_PATTERN,
+  ANDROID_PACKAGE_PATTERN,
+  EXPO_CONFIGS_PATTERN,
+  PLUGIN_CONFIGS_PATTERN,
+} from "constants/glob-patterns";
+
+export const hashDependencies = ({
+  excludePlatforms,
+  excludeExpoConfig,
+  factorAllDependencyChanges,
+  additionalPatterns,
+}: HashDependenciesOptions = {}) => {
+  const patterns: string[] = [];
+
+  if (factorAllDependencyChanges) {
+    const files = globSync(PACKAGE_JSON_PATTERN);
+    return hashFileContents(files);
+  }
+
+  if (!excludePlatforms?.includes(Platform.Ios))
+    patterns.push(IOS_PACKAGE_PATTERN);
+
+  if (!excludePlatforms?.includes(Platform.Android))
+    patterns.push(ANDROID_PACKAGE_PATTERN);
+
+  if (!excludeExpoConfig)
+    patterns.push(EXPO_CONFIGS_PATTERN, PLUGIN_CONFIGS_PATTERN);
+
+  if (additionalPatterns) patterns.push(...additionalPatterns);
+
+  const files = patterns.flatMap((pattern) => globSync(pattern)).sort();
+  return hashFileContents(files);
+};
