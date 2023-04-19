@@ -11,6 +11,11 @@ import {
   PLUGIN_CONFIGS_PATTERN,
 } from "constants/glob-patterns";
 
+/**
+ * Hashes the dependencies in the current working directory as a hash.
+ * @param options Optional options to change the behaviour of the dependency hashing functionality.
+ * @returns A hash as a string representing the dependencies
+ */
 export const hashDependencies = ({
   excludePlatforms,
   excludeExpoConfig,
