@@ -26,7 +26,8 @@ export const hashDependencies = ({
 
   if (factorAllDependencyChanges) {
     const files = globSync(PACKAGE_JSON_PATTERN);
-    return hashFileContents(files);
+    const hash = hashFileContents(files);
+    return { hash, fileCount: files.length };
   }
 
   if (!excludePlatforms?.includes(Platform.Ios))
@@ -41,5 +42,7 @@ export const hashDependencies = ({
   if (additionalPatterns) patterns.push(...additionalPatterns);
 
   const files = patterns.flatMap((pattern) => globSync(pattern)).sort();
-  return hashFileContents(files);
+  const hash = hashFileContents(files);
+
+  return { hash, fileCount: files.length };
 };
