@@ -8,7 +8,8 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "glob": "^10.2.1"
+    "glob": "^10.2.1",
+    "murmurhash": "^2.0.1"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",
