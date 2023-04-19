@@ -14,7 +14,7 @@
       "*": ["./*"]
     },
     "types": ["@types/node"],
-    "typeRoots": ["lib/typings", "./node_modules/@types"]
+    "typeRoots": ["lib/types", "./node_modules/@types"]
   },
   "include": ["lib/**/*"],
   "exclude": ["node_modules", "tests"]
