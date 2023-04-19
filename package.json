@@ -1,0 +1,13 @@
+{
+  "name": "dephash",
+  "version": "0.1.0",
+  "description": "Hashes native dependencies for React Native & Expo projects",
+  "main": "dist/index.js",
+  "repository": "https://github.com/ridafkih/dephash",
+  "author": "Rida F'kih <hello@rida.dev>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "glob": "^10.2.1"
+  }
+}
