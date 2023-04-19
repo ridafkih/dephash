@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 import { program } from "commander";
 import signale from "signale";
@@ -41,6 +41,7 @@ program
   )
   .option("--additional-patterns <pattern>", 'glob patterns seperated by ","')
   .option("--raw, -r", "whether to just return the raw value in stdout")
+  .option("--output <path>, -o <path>", "a path with a path to write out")
   .action((options) => {
     performance.mark("execution_start");
 
@@ -53,6 +54,8 @@ program
       factorAllChanges,
       raw,
       R,
+      output,
+      O,
     } = options;
 
     const excludePlatforms = [];
@@ -70,6 +73,13 @@ program
       excludeExpoConfig: isBooleanTrue(excludeExpoConfig),
       factorAllDependencyChanges: isBooleanTrue(factorAllChanges),
     });
+
+    if (O || output) {
+      const path = O || output;
+      if (typeof path === "string") {
+        writeFileSync(join(process.cwd(), path), hash);
+      }
+    }
 
     performance.mark("execution_end");
     performance.measure("execution_time", "execution_start", "execution_end");

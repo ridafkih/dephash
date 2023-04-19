@@ -45,6 +45,7 @@ Options:
   --factor-all-changes             will generate a new hash even if the changes are non-native
   --additional-patterns <pattern>  glob patterns seperated by ","
   --raw, -r                        whether to just return the raw value in stdout
+  --output <path>, -o <path>       a path with a path to write out
   -h, --help                       display help for command
 ```
 
