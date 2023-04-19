@@ -1,3 +1,9 @@
 {
+  "compilerOptions": {
+    "baseUrl": "../lib",
+    "paths": {
+      "*": ["./*"]
+    }
+  },
   "include": ["./**/*.ts"]
 }
