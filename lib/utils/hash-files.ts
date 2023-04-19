@@ -19,8 +19,14 @@ export const hashFileContents = (
 
   for (const path of paths) {
     if (!statSync(path).isFile()) continue;
-    const contents = readFileSync(join(rootDirectory, path));
-    hash.update(contents);
+    try {
+      const contents = readFileSync(join(rootDirectory, path));
+      hash.update(contents);
+    } catch (error) {
+      console.warn(
+        `There was an error scanning '${path}', which may result in a different hash.`
+      );
+    }
   }
 
   return hash.digest("hex");
