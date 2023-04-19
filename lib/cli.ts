@@ -72,6 +72,9 @@ program
 
     const [measurement] = performance.getEntriesByName("execution_time");
 
+    performance.clearMarks();
+    performance.clearMeasures();
+
     if (R || raw) {
       return console.log(hash);
     }
@@ -83,9 +86,6 @@ program
     );
 
     signale.success(`hash: ${hash}`);
-
-    performance.clearMarks();
-    performance.clearMeasures();
   });
 
 program.parse();
