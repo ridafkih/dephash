@@ -63,7 +63,7 @@ An array of additional glob patterns to include in the dependency hashing.
 Here's an example of using the options:
 
 ```ts
-import { hashDependencies, Platform } = from "dephash";
+import { hashDependencies, Platform } from "dephash";
 
 const options = {
   excludePlatforms: [Platform.Ios],
