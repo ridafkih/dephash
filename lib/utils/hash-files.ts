@@ -18,8 +18,8 @@ export const hashFileContents = (
   const hash = createHash("md5");
 
   for (const path of paths) {
-    if (!statSync(path).isFile()) continue;
     try {
+      if (!statSync(path).isFile()) continue;
       const contents = readFileSync(join(rootDirectory, path));
       hash.update(contents);
     } catch (error) {
