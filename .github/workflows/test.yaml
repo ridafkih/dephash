@@ -1,11 +1,10 @@
-name: publish
+name: Run Tests
 
 on:
-  release:
-    types: [published]
+  pull_request:
 
 jobs:
-  publish:
+  run-unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,9 +14,5 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: install-dependencies
         run: yarn
-      - name: build
-        run: yarn build
-      - name: publish
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: test
+        run: yarn test
