@@ -1,6 +1,6 @@
 {
   "name": "dephash",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Hashes native dependencies for React Native & Expo projects",
   "main": "dist/index.js",
   "repository": "https://github.com/ridafkih/dephash",
