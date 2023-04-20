@@ -55,7 +55,7 @@ Options:
 Dephash allows you to hash the dependencies in the current working directory as a string. The following is an example usage.
 
 ```ts
-import { hashDependencies } = from "dephash";
+import { hashDependencies } from "dephash";
 
 const hash = hashDependencies();
 console.log(hash);
