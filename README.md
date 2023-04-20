@@ -46,6 +46,7 @@ Options:
   --additional-patterns <pattern>  glob patterns seperated by ","
   --raw, -r                        whether to just return the raw value in stdout
   --output <path>, -o <path>       a path with a path to write out
+  --eas-only                       whether or not to only run on eas
   -h, --help                       display help for command
 ```
 

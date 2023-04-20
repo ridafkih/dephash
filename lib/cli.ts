@@ -42,6 +42,7 @@ program
   .option("--additional-patterns <pattern>", 'glob patterns seperated by ","')
   .option("--raw, -r", "whether to just return the raw value in stdout")
   .option("--output <path>, -o <path>", "a path with a path to write out")
+  .option("--eas-only", "whether or not to only run on eas")
   .action((options) => {
     performance.mark("execution_start");
 
@@ -56,7 +57,12 @@ program
       R,
       output,
       O,
+      easOnly,
     } = options;
+
+    if (isBooleanTrue(easOnly) && process.env.EAS_BUILD !== "true") {
+      return;
+    }
 
     const excludePlatforms = [];
     if (isBooleanTrue(excludeIos)) excludePlatforms.push(Platform.Ios);
