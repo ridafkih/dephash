@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "commander": "^10.0.1",
-    "glob": "^10.2.1",
+    "fast-glob": "^3.2.12",
     "signale": "^1.4.0"
   },
   "devDependencies": {

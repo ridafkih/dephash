@@ -18,16 +18,10 @@ export const hashFileContents = (paths: string[], rootDirectory: string) => {
       const contents = readFileSync(fullPath);
       hash.update(path).update(contents);
     } catch (error: unknown) {
-      if (
-        error &&
-        typeof error === "object" &&
-        "code" in error &&
-        error.code !== "EISDIR"
-      ) {
-        console.warn(
-          `There was a(n) ${error.code} error scanning '${path}', which may result in a different hash.`
-        );
-      }
+      if (!error || typeof error !== "object" || !("code" in error)) continue;
+      console.warn(
+        `There was a(n) ${error.code} error scanning '${path}', which may result in an unexpected hash.`
+      );
     }
   }
 

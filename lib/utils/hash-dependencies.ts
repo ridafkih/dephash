@@ -1,5 +1,5 @@
 import { Platform } from "enums/platform";
-import { globSync } from "glob";
+import { sync as globSync } from "fast-glob";
 import { hashFileContents } from "utils/hash-files";
 import type { HashDependenciesOptions } from "types/hash-dependencies-options";
 
@@ -12,7 +12,7 @@ import {
 } from "constants/glob-patterns";
 
 const getMatchingGlobPaths = (pattern: string, rootDirectory?: string) => {
-  return globSync(pattern, { cwd: rootDirectory });
+  return globSync(pattern, { cwd: rootDirectory, onlyFiles: true });
 };
 
 /**
