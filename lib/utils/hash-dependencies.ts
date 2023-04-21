@@ -12,7 +12,7 @@ import {
 } from "constants/glob-patterns";
 
 const getMatchingGlobPaths = (pattern: string, rootDirectory?: string) => {
-  return globSync(pattern, { cwd: rootDirectory });
+  return globSync(pattern, { cwd: rootDirectory, nodir: true });
 };
 
 /**

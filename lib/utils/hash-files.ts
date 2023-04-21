@@ -12,25 +12,15 @@ export const hashFileContents = (paths: string[], rootDirectory: string) => {
   const hash = createHash("md5");
 
   for (const path of paths) {
+    const fullPath = join(rootDirectory, path);
+
     try {
-      const contents = readFileSync(join(rootDirectory, path));
+      const contents = readFileSync(fullPath);
       hash.update(path).update(contents);
     } catch (error: unknown) {
-      if (
-        error &&
-        typeof error === "object" &&
-        "code" in error &&
-        error.code !== "EISDIR"
-      ) {
-        console.warn(
-          `There was a(n) ${
-            error.code
-          } error scanning '${path}', which may result in a different hash. The full path of the file is ${join(
-            rootDirectory,
-            path
-          )}`
-        );
-      }
+      console.warn(
+        `There was an error scanning '${path}', which may result in a different hash. The full path of the file is ${fullPath}`
+      );
     }
   }
 
