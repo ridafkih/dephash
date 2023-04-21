@@ -9,30 +9,21 @@ import { join } from "path";
  * @returns A hex-representation of the hash.
  */
 export const hashFileContents = (paths: string[], rootDirectory: string) => {
-  const hash = createHash("md5");
+  const hash = createHash("sha1");
 
   for (const path of paths) {
+    const fullPath = join(rootDirectory, path);
+
     try {
-      const contents = readFileSync(join(rootDirectory, path));
+      const contents = readFileSync(fullPath);
       hash.update(path).update(contents);
     } catch (error: unknown) {
-      if (
-        error &&
-        typeof error === "object" &&
-        "code" in error &&
-        error.code !== "EISDIR"
-      ) {
-        console.warn(
-          `There was a(n) ${
-            error.code
-          } error scanning '${path}', which may result in a different hash. The full path of the file is ${join(
-            rootDirectory,
-            path
-          )}`
-        );
-      }
+      if (!error || typeof error !== "object" || !("code" in error)) continue;
+      console.warn(
+        `There was a(n) ${error.code} error scanning '${path}', which may result in an unexpected hash.`
+      );
     }
   }
 
-  return hash.digest("hex");
+  return hash.digest("hex").substring(0, 32);
 };
