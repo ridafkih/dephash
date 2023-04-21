@@ -9,23 +9,34 @@ describe("hashFileContents", () => {
     const paths = [
       "./tests/__project__/alpha.txt",
       "./tests/__project__/beta.txt",
+      "./tests/__project__/charlie/charlie.txt",
     ];
-    const expectedHash = createHash("md5")
-      .update(readFileSync(join(process.cwd(), paths[0])))
-      .update(readFileSync(join(process.cwd(), paths[1])))
-      .digest("hex");
 
-    const actualHash = hashFileContents(paths);
-    expect(actualHash).toEqual(expectedHash);
+    const expectedHash = createHash("md5");
+
+    for (const path of paths) {
+      const fullPath = join(process.cwd(), path);
+      const pathNameBuffer = Buffer.from(path);
+      const contents = readFileSync(fullPath);
+
+      expectedHash.update(Buffer.concat([pathNameBuffer, contents]));
+    }
+
+    const actualHash = hashFileContents(paths, process.cwd());
+    expect(expectedHash.digest("hex")).toEqual(actualHash);
   });
 
   it("should skip non-file paths", () => {
     const paths = ["./tests/__project__/alpha.txt", "./tests/__project__"];
+
+    const pathNameBuffer = Buffer.from(paths[0]);
+    const contents = readFileSync(join(process.cwd(), paths[0]));
+
     const expectedHash = createHash("md5")
-      .update(readFileSync(join(process.cwd(), paths[0])))
+      .update(Buffer.concat([pathNameBuffer, contents]))
       .digest("hex");
 
-    const actualHash = hashFileContents(paths);
+    const actualHash = hashFileContents(paths, process.cwd());
     expect(actualHash).toEqual(expectedHash);
   });
 });
