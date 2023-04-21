@@ -12,7 +12,7 @@ describe("hashFileContents", () => {
       "./tests/__project__/charlie/charlie.txt",
     ];
 
-    const expectedHash = createHash("md5");
+    const expectedHash = createHash("sha1");
 
     for (const path of paths) {
       const fullPath = join(process.cwd(), path);
@@ -22,7 +22,7 @@ describe("hashFileContents", () => {
     }
 
     const actualHash = hashFileContents(paths, process.cwd());
-    expect(expectedHash.digest("hex")).toEqual(actualHash);
+    expect(expectedHash.digest("hex").substring(0, 32)).toEqual(actualHash);
   });
 
   it("should skip non-file paths", () => {
@@ -30,10 +30,11 @@ describe("hashFileContents", () => {
 
     const contents = readFileSync(join(process.cwd(), paths[0]));
 
-    const expectedHash = createHash("md5")
+    const expectedHash = createHash("sha1")
       .update(paths[0])
       .update(contents)
-      .digest("hex");
+      .digest("hex")
+      .substring(0, 32);
 
     const actualHash = hashFileContents(paths, process.cwd());
     expect(actualHash).toEqual(expectedHash);

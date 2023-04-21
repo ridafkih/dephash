@@ -9,7 +9,7 @@ import { join } from "path";
  * @returns A hex-representation of the hash.
  */
 export const hashFileContents = (paths: string[], rootDirectory: string) => {
-  const hash = createHash("md5");
+  const hash = createHash("sha1");
 
   for (const path of paths) {
     try {
@@ -34,5 +34,5 @@ export const hashFileContents = (paths: string[], rootDirectory: string) => {
     }
   }
 
-  return hash.digest("hex");
+  return hash.digest("hex").substring(0, 32);
 };
