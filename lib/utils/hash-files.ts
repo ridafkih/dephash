@@ -12,8 +12,10 @@ export const hashFileContents = (paths: string[], rootDirectory: string) => {
   const hash = createHash("sha1");
 
   for (const path of paths) {
+    const fullPath = join(rootDirectory, path);
+
     try {
-      const contents = readFileSync(join(rootDirectory, path));
+      const contents = readFileSync(fullPath);
       hash.update(path).update(contents);
     } catch (error: unknown) {
       if (
@@ -23,12 +25,7 @@ export const hashFileContents = (paths: string[], rootDirectory: string) => {
         error.code !== "EISDIR"
       ) {
         console.warn(
-          `There was a(n) ${
-            error.code
-          } error scanning '${path}', which may result in a different hash. The full path of the file is ${join(
-            rootDirectory,
-            path
-          )}`
+          `There was a(n) ${error.code} error scanning '${path}', which may result in a different hash.`
         );
       }
     }
