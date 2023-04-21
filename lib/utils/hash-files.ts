@@ -13,20 +13,24 @@ export const hashFileContents = (paths: string[], rootDirectory: string) => {
 
   for (const path of paths) {
     try {
-      const pathNameBuffer = Buffer.from(path);
       const contents = readFileSync(join(rootDirectory, path));
-
-      hash.update(Buffer.concat([pathNameBuffer, contents]));
+      hash.update(path).update(contents);
     } catch (error: unknown) {
       if (
         error &&
         typeof error === "object" &&
         "code" in error &&
         error.code !== "EISDIR"
-      )
+      ) {
         console.warn(
-          `There was an error scanning '${path}', which may result in a different hash.`
+          `There was a(n) ${
+            error.code
+          } error scanning '${path}', which may result in a different hash. The full path of the file is ${join(
+            rootDirectory,
+            path
+          )}`
         );
+      }
     }
   }
 

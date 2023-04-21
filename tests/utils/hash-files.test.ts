@@ -16,10 +16,9 @@ describe("hashFileContents", () => {
 
     for (const path of paths) {
       const fullPath = join(process.cwd(), path);
-      const pathNameBuffer = Buffer.from(path);
       const contents = readFileSync(fullPath);
 
-      expectedHash.update(Buffer.concat([pathNameBuffer, contents]));
+      expectedHash.update(path).update(contents);
     }
 
     const actualHash = hashFileContents(paths, process.cwd());
@@ -29,11 +28,11 @@ describe("hashFileContents", () => {
   it("should skip non-file paths", () => {
     const paths = ["./tests/__project__/alpha.txt", "./tests/__project__"];
 
-    const pathNameBuffer = Buffer.from(paths[0]);
     const contents = readFileSync(join(process.cwd(), paths[0]));
 
     const expectedHash = createHash("md5")
-      .update(Buffer.concat([pathNameBuffer, contents]))
+      .update(paths[0])
+      .update(contents)
       .digest("hex");
 
     const actualHash = hashFileContents(paths, process.cwd());
