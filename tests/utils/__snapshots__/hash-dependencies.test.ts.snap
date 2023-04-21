@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`hashFileContents > should always generate the same hash 1`] = `"15ae2a236d4c0126e2734cd79756dac8"`;

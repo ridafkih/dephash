@@ -11,13 +11,17 @@ import {
   PLUGIN_CONFIGS_PATTERN,
 } from "constants/glob-patterns";
 
+const getMatchingGlobPaths = (pattern: string, rootDirectory?: string) => {
+  return globSync(pattern, { cwd: rootDirectory });
+};
+
 /**
  * Hashes the dependencies in the current working directory as a string.
  * @param options Optional options to change the behaviour of the dependency hashing functionality.
  * @returns A hash as a string representing the dependencies
  */
 export const hashDependencies = ({
-  rootDirectory,
+  rootDirectory = process.cwd(),
   excludePlatforms,
   excludeExpoConfig,
   factorAllDependencyChanges,
@@ -26,8 +30,8 @@ export const hashDependencies = ({
   const patterns: string[] = [];
 
   if (factorAllDependencyChanges) {
-    const files = globSync(PACKAGE_JSON_PATTERN);
-    const hash = hashFileContents(files);
+    const files = getMatchingGlobPaths(PACKAGE_JSON_PATTERN, rootDirectory);
+    const hash = hashFileContents(files, rootDirectory);
     return { hash, fileCount: files.length };
   }
 
@@ -42,8 +46,11 @@ export const hashDependencies = ({
 
   if (additionalPatterns) patterns.push(...additionalPatterns);
 
-  const files = patterns.flatMap((pattern) => globSync(pattern)).sort();
-  const hash = hashFileContents(files, { rootDirectory });
+  const files = patterns.flatMap((pattern) =>
+    getMatchingGlobPaths(pattern, rootDirectory)
+  );
+
+  const hash = hashFileContents(files, rootDirectory);
 
   return { hash, fileCount: files.length };
 };

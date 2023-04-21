@@ -44,8 +44,6 @@ program
   .option("--output <path>, -o <path>", "a path with a path to write out")
   .option("--eas-only", "whether or not to only run on eas")
   .action((options) => {
-    performance.mark("execution_start");
-
     const {
       rootDirectory,
       excludeIos,
@@ -68,6 +66,7 @@ program
     if (isBooleanTrue(excludeIos)) excludePlatforms.push(Platform.Ios);
     if (isBooleanTrue(excludeAndroid)) excludePlatforms.push(Platform.Android);
 
+    performance.mark("hashing_start");
     const { hash, fileCount } = hashDependencies({
       rootDirectory:
         typeof rootDirectory === "string" ? rootDirectory : undefined,
@@ -80,20 +79,18 @@ program
       factorAllDependencyChanges: isBooleanTrue(factorAllChanges),
     });
 
+    performance.mark("hashing_end");
+    performance.measure("hashing_time", "hashing_start", "hashing_end");
+    const [measurement] = performance.getEntriesByName("hashing_time");
+    performance.clearMarks();
+    performance.clearMeasures();
+
     if (O || output) {
       const path = O || output;
       if (typeof path === "string") {
         writeFileSync(join(process.cwd(), path), hash);
       }
     }
-
-    performance.mark("execution_end");
-    performance.measure("execution_time", "execution_start", "execution_end");
-
-    const [measurement] = performance.getEntriesByName("execution_time");
-
-    performance.clearMarks();
-    performance.clearMeasures();
 
     if (R || raw) {
       return console.log(hash);
