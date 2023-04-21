@@ -9,7 +9,7 @@
   "private": false,
   "bin": "dist/cli.js",
   "scripts": {
-    "build": "tsc --declaration && tsc-alias",
+    "build": "tsc && tsc-alias",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "eslint .",
