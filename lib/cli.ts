@@ -29,6 +29,11 @@ program
     "Generates a hash based off the dependencies & files from the current working directory."
   )
   .option("--root-directory", "will be where the the scan begins for files")
+  .option(
+    "--algorithm <xxhash|sha1>",
+    "[default: 'sha1'] which algorithm to use",
+    "sha1"
+  )
   .option("--exclude-ios", "will not consider native ios changes")
   .option("--exclude-android", "will not consider native android changes")
   .option(
@@ -46,6 +51,7 @@ program
   .action((options) => {
     const {
       rootDirectory,
+      algorithm,
       excludeIos,
       excludeAndroid,
       excludeExpoConfig,
@@ -70,6 +76,7 @@ program
     const { hash, fileCount } = hashDependencies({
       rootDirectory:
         typeof rootDirectory === "string" ? rootDirectory : undefined,
+      algorithm,
       excludePlatforms,
       additionalPatterns:
         typeof additionalPatterns === "string"

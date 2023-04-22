@@ -1,10 +1,12 @@
 import type { Platform } from "enums/platform";
+import { Algorithm } from "./algorithm";
 
 export interface HashDependenciesOptions {
   /**
    * The root directory of where to begin the scan.
    */
   rootDirectory?: string;
+  algorithm?: Algorithm;
   /**
    * Which platforms to exclude from the search.
    */
