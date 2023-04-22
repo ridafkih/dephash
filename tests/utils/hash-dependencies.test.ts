@@ -12,6 +12,7 @@ describe("hashFileContents", () => {
     expect(fileCount).toBe(3);
     expect(hash).toBeTypeOf("string");
   });
+
   it("should always generate the same hash", () => {
     const { hash } = hashDependencies({
       rootDirectory: join(process.cwd(), "tests", "__project__"),

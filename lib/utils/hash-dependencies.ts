@@ -21,7 +21,7 @@ const getMatchingGlobPaths = (pattern: string, rootDirectory?: string) => {
  * @returns A hash as a string representing the dependencies
  */
 export const hashDependencies = ({
-  rootDirectory = process.cwd(),
+  rootDirectory,
   excludePlatforms,
   excludeExpoConfig,
   factorAllDependencyChanges,
