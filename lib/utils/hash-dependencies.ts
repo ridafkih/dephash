@@ -11,7 +11,10 @@ import {
   PLUGIN_CONFIGS_PATTERN,
 } from "constants/glob-patterns";
 
-const getMatchingGlobPaths = (pattern: string, rootDirectory?: string) => {
+const getMatchingGlobPaths = (
+  pattern: string | string[],
+  rootDirectory?: string
+) => {
   return globSync(pattern, { cwd: rootDirectory, onlyFiles: true });
 };
 
@@ -46,9 +49,7 @@ export const hashDependencies = ({
 
   if (additionalPatterns) patterns.push(...additionalPatterns);
 
-  const files = patterns.flatMap((pattern) =>
-    getMatchingGlobPaths(pattern, rootDirectory)
-  );
+  const files = getMatchingGlobPaths(patterns, rootDirectory);
 
   const hash = hashFileContents(files, rootDirectory);
 
