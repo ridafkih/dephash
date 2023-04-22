@@ -25,6 +25,7 @@ const getMatchingGlobPaths = (
  */
 export const hashDependencies = ({
   rootDirectory,
+  algorithm,
   excludePlatforms,
   excludeExpoConfig,
   factorAllDependencyChanges,
@@ -34,7 +35,7 @@ export const hashDependencies = ({
 
   if (factorAllDependencyChanges) {
     const files = getMatchingGlobPaths(PACKAGE_JSON_PATTERN, rootDirectory);
-    const hash = hashFileContents(files, rootDirectory);
+    const hash = hashFileContents(files, { algorithm, rootDirectory });
     return { hash, fileCount: files.length };
   }
 
@@ -51,7 +52,7 @@ export const hashDependencies = ({
 
   const files = getMatchingGlobPaths(patterns, rootDirectory);
 
-  const hash = hashFileContents(files, rootDirectory);
+  const hash = hashFileContents(files, { algorithm, rootDirectory });
 
   return { hash, fileCount: files.length };
 };

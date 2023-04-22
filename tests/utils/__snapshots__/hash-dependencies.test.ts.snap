@@ -1,3 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`hashFileContents > should always generate the same hash 1`] = `"5672665b14466f48e0344d305365f605"`;
+exports[`hashFileContents > should always generate the same hash (sha1) 1`] = `"5672665b14466f48e0344d305365f605"`;
+
+exports[`hashFileContents > should always generate the same hash (xxhash) 1`] = `"277bd41c3fec9627"`;
