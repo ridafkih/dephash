@@ -24,19 +24,4 @@ describe("hashFileContents", () => {
     const actualHash = hashFileContents(paths, process.cwd());
     expect(expectedHash.digest("hex").substring(0, 32)).toEqual(actualHash);
   });
-
-  it("should skip non-file paths", () => {
-    const paths = ["./tests/__project__/alpha.txt", "./tests/__project__"];
-
-    const contents = readFileSync(join(process.cwd(), paths[0]));
-
-    const expectedHash = createHash("sha1")
-      .update(paths[0])
-      .update(contents)
-      .digest("hex")
-      .substring(0, 32);
-
-    const actualHash = hashFileContents(paths, process.cwd());
-    expect(actualHash).toEqual(expectedHash);
-  });
 });

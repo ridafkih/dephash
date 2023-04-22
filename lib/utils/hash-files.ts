@@ -8,11 +8,11 @@ import { join } from "path";
  * @param rootDirectory Root directory to append to the beginning of paths provided.
  * @returns A hex-representation of the hash.
  */
-export const hashFileContents = (paths: string[], rootDirectory: string) => {
+export const hashFileContents = (paths: string[], rootDirectory?: string) => {
   const hash = createHash("sha1");
 
   for (const path of paths) {
-    const fullPath = join(rootDirectory, path);
+    const fullPath = rootDirectory ? join(rootDirectory, path) : path;
 
     try {
       const contents = readFileSync(fullPath);
