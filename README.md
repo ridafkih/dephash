@@ -31,7 +31,7 @@ npm install --save-dev dephash
 Dephash exposes a CLI for you to generate a hash.
 
 ```bash
-yarn dephash --raw
+yarn dephash hash --raw
 ```
 
 ```bash
